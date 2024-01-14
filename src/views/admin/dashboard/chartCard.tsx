@@ -1,4 +1,4 @@
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis, VictoryPie } from 'victory';
+import {  VictoryPie } from 'victory';
 
 const ChartCard = () => {
   const data = [

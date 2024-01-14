@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import useDebounce from '../../../hooks/useDebounce';
 import { fetchAllItems } from '../../../store/reducers/product/allProductsSlice';
