@@ -1,15 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useNav } from './config';
 import Logo from '../../assets/logo.png';
-
-
-
+import { successMsg } from '../../components/toast';
+import { logout } from '../../store/reducers/auth/authenticationSlice';
+import Cart from '../../assets/icons/cart.svg';
 
 const Navbar: React.FC = () => {
   const { navConfig } = useNav();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const [isOptionsOpen, setOptionsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  }
+  const toggleDropdown = () => {
+    setOptionsOpen(!isOptionsOpen);
+  };
+
+  const closeDropdown = () => {
+    setOptionsOpen(false);
+  };
+
+  const logoutHandler = async () => {
+    await dispatch(logout());
+    navigate('/login')
+    successMsg("Logged Out Successfully");
+  };
+
   const isLinkActive = (path: string) => {
 
     const isActiveRoute = location.pathname.startsWith(path);
@@ -24,7 +49,19 @@ const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [setOptionsOpen]);
 
+  const allowedOnAdminRoles = ["admin", "owner", "employee"];
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,12 +89,20 @@ const Navbar: React.FC = () => {
     <>
       <header>
         <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2 border">
-          <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="#" className="flex items-center">
+          <div className="flex flex-wrap justify-between items-center  max-w-screen-xl">
+
+            <Link to="/home" className="flex items-center">
               <img src={Logo} className="h-20 sm:h-16" alt="Logo" />
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white"></span>
-            </a>
+            </Link>
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white"></span>
+
             <div className="flex items-center lg:order-2">
+              <Link to="/cart" className="absolute right-20">
+                <img src={Cart} className="w-8 h-8" alt="Cart Icon" />
+                {cartItems.length > 0 && (
+                  <span className="absolute bottom-4 left-4 bg-red-500 text-white rounded-full px-2 py-1 text-xs font-black">{cartItems.length}</span>
+                )}
+              </Link>
               <button
                 onClick={toggleMobileMenu}
                 type="button"
@@ -91,6 +136,8 @@ const Navbar: React.FC = () => {
                   ></path>
                 </svg>
               </button>
+
+
             </div>
             <div
               className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
@@ -112,9 +159,48 @@ const Navbar: React.FC = () => {
 
                 ))}
               </ul>
+
+
+            </div>
+
+          </div>
+
+
+
+          <div className="absolute hidden lg:flex right-3 top-2 h-16  items-center z-10" ref={dropdownRef}>
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                type="button"
+                className="h-10 w-10 rounded-full overflow-hidden focus:outline-none"
+              >
+                {isAuthenticated ? (<img src={user?.avatar?.url} alt="User Avatar" className="h-full w-full object-cover" />) : null}
+              </button>
+              {isOptionsOpen && (
+                <div className="absolute top-full w-32 right-0 bg-white border border-gray-200 rounded-lg shadow-lg">
+                  <ul className="py-2 text-center">
+                    <li className="mb-2">
+                      <a className="hover:text-indigo-500 cursor-pointer">Profile</a>
+                    </li>
+                    {user && allowedOnAdminRoles.includes(user.role.toLowerCase())
+                      &&
+                      (
+                        <li className="mb-2">
+                          <a className="hover:text-indigo-500 cursor-pointer" onClick={() => { navigate('/admin') }} >Dashboard</a>
+                        </li>
+                      )}
+
+                    <li>
+                      <a className="hover:text-indigo-500 cursor-pointer" onClick={logoutHandler}>Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
+
         </nav>
+
       </header>
 
       {isMobileMenuOpen && (
@@ -134,12 +220,17 @@ const Navbar: React.FC = () => {
                     to={item.path}
                     className={`block py-2 pr-4 pl-4 text-xl ${isLinkActive(item.path) ? 'text-violet-700' : 'text-gray-700'}
                       } hover:text-violet-700`}
+                    onClick={closeMenu}
                   >
                     {item.title}
                   </Link>
 
                 </li>
               ))}
+              <li>
+                <a className="block py-2 pr-4 pl-4 text-xl text-gray-700 hover:text-violet-700" onClick={logoutHandler}>Logout</a>
+              </li>
+
             </ul>
           </div>
         </>

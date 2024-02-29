@@ -1,19 +1,20 @@
+import { Link } from 'react-router-dom';
 import LoginForm from './loginForm';
-import Logo from '../../../assets/logo.png'
-import BreakFastLogo from '../../../assets/svg/breakfast.svg';
+import Logo from '../../../assets/logo.png';
+import LoginSVG from '../../../assets/svg/login.svg';
 import MetaData from '../../../components/MetaData';
 
 const LoginPage = () => {
   return (
     <>
       <MetaData title={'Login'} />
-      <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+      <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center max-h-screen">
         <div className="max-w-screen-xl sm:m-2  bg-white shadow sm:rounded-lg flex justify-center  rounded-lg">
           <div className="flex-1 bg-indigo-100 text-center hidden lg:flex rounded-tl-lg rounded-bl-lg">
             <div
               className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat flex items-center"
             >
-              <img src={BreakFastLogo} alt="Login Background" />
+              <img src={LoginSVG} alt="Login Background by Storyset" />
             </div>
 
           </div>
@@ -51,7 +52,7 @@ const LoginPage = () => {
                   </button>
                 </div>
 
-                <div className="my-12 border-b text-center">
+                <div className="my-5 border-b text-center">
                   <div
                     className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                     Or
@@ -59,6 +60,7 @@ const LoginPage = () => {
                 </div>
                 <LoginForm />
               </div>
+              <p className="text-gray-600 text-sm mt-4">Don't have an account? <Link to="/register" className="text-blue-500">Register</Link></p>
             </div>
           </div>
 
