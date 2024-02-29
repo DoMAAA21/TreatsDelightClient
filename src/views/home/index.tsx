@@ -12,6 +12,7 @@ import Egg from '../../assets/home/Egg.svg';
 import Chicken from '../../assets/home/chicken.svg';
 import Soup from '../../assets/home/soup.svg';
 
+//For Git only disregard this
 const HomePage = () => {
     return (
         <div className="overflow-x-hidden">
