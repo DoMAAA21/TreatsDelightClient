@@ -6,7 +6,6 @@ import DashboardLayout from './layouts/dashboardLayout';
 import DefaultLayout from './layouts/defaultLayout';
 //Views
 import DashboardPage from './views/admin/dashboard';
-
 import UserPage from './views/admin/owner';
 import AddOwnerPage from './views/admin/owner/addOwner';
 import EditOwnerPage from './views/admin/owner/editOwner';
@@ -36,6 +35,7 @@ import MaintenancePage from './views/admin/maintenance';
 import MaintenanceTransaction from './views/admin/maintenance/maintenanceTransactions';
 import MaintenanceArchivesPage from './views/admin/maintenance/archives';
 import InventoryPage from './views/admin/inventory';
+import ProfilePage from './views/admin/employee/profile';
 import AnalyticsPage from './views/admin/analytic';
 //Client
 import LoginPage from './views/auth/login';
@@ -90,6 +90,7 @@ const AppRoutes: FC = () => {
         { path: 'maintenance/store-archived/:id', element: <MaintenanceArchivesPage /> },
         { path: 'inventory', element: <InventoryPage /> },
         { path: 'analytics', element: <AnalyticsPage /> },
+        { path: 'profile', element: <ProfilePage/> }
       ]
     },
     {
@@ -115,4 +116,3 @@ const AppRoutes: FC = () => {
 };
 
 export default AppRoutes;
-

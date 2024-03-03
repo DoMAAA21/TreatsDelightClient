@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import LoginForm from './loginForm';
-import Logo from '../../../assets/logo.png';
+import Logo from '../../../assets/logo.png'
 import LoginSVG from '../../../assets/svg/login.svg';
 import MetaData from '../../../components/MetaData';
 

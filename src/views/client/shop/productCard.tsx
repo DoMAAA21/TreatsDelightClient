@@ -1,6 +1,9 @@
 import React from 'react';
-import { colors } from '../../../components/theme';
 import { useNavigate } from 'react-router-dom';
+
+import { colors } from '../../../components/theme';
+
+
 
 interface ProductImage {
   index?: number;
@@ -10,23 +13,19 @@ interface ProductImage {
 interface ProductCardProps {
   _id: number | string;
   name: string;
-  description?: string;
-  costPrice?: number;
   sellPrice: number;
-  stock: number;
+  images: ProductImage[];
   store?: {
     storeId: string;
     name: string;
-  }
-  category?: string;
-  active: boolean | string;
-  images: ProductImage[];
-
+  };
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ _id, name, sellPrice, images, store }) => {
-
+ 
   const navigate = useNavigate();
+
+
 
   return (
     <div className="max-w-md bg-white rounded-xl overflow-hidden shadow-lg mb-10 mx-4 transform transition-transform hover:scale-105">

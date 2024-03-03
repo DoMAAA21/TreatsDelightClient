@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useNav } from './config';
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/1128logo.png';
 import { successMsg } from '../../components/toast';
 import { logout } from '../../store/reducers/auth/authenticationSlice';
 import Cart from '../../assets/icons/cart.svg';
@@ -88,8 +88,8 @@ const Navbar: React.FC = () => {
   return (
     <>
       <header>
-        <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2 border">
-          <div className="flex flex-wrap justify-between items-center  max-w-screen-xl">
+        <nav className="bg-slate-300 border-gray-200 px-4 lg:px-6 py-2 border">
+          <div className="flex flex-wrap items-center  max-w-screen-xl">
 
             <Link to="/home" className="flex items-center">
               <img src={Logo} className="h-20 sm:h-16" alt="Logo" />
@@ -140,29 +140,23 @@ const Navbar: React.FC = () => {
 
             </div>
             <div
-              className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+              className="hidden items-center w-full lg:flex lg:w-auto lg:order-1"
               id="mobile-menu-2"
             >
-              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-2 lg:mt-0">
-
-
+              <ul className="pl-10 flex flex-col mt-4 font-medium lg:flex-row lg:space-x-2 lg:mt-0">
                 {navConfig.map((item) => (
                   <li key={item.title}>
                     <Link
                       to={item.path}
-                      className={`block py-2 pr-4 pl-4 text-xl ${isLinkActive(item.path) ? 'text-violet-700' : 'text-gray-700'}
-                      } hover:text-violet-700`}
+                      className={`block py-2 pr-4 pl-4 text-xl ${isLinkActive(item.path) ? 'text-lime-950' : 'text-teal-700'}
+                      } hover:text-sky-500`}
                     >
                       {item.title}
                     </Link>
                   </li>
-
                 ))}
               </ul>
-
-
             </div>
-
           </div>
 
 
@@ -180,7 +174,9 @@ const Navbar: React.FC = () => {
                 <div className="absolute top-full w-32 right-0 bg-white border border-gray-200 rounded-lg shadow-lg">
                   <ul className="py-2 text-center">
                     <li className="mb-2">
-                      <a className="hover:text-indigo-500 cursor-pointer">Profile</a>
+                    <Link to="/admin/profile" className="hover:text-indigo-500 cursor-pointer">
+                      Profile
+                    </Link>
                     </li>
                     {user && allowedOnAdminRoles.includes(user.role.toLowerCase())
                       &&
