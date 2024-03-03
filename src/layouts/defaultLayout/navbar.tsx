@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useNav } from './config';
-import Logo from '../../assets/1128logo.png';
+import Logo from '../../assets/1128Logo.png';
 import { successMsg } from '../../components/toast';
 import { logout } from '../../store/reducers/auth/authenticationSlice';
 import Cart from '../../assets/icons/cart.svg';
