@@ -5,14 +5,7 @@ import hide from '../../../assets/svg/hide-password.svg'
 import show from '../../../assets/svg/show-password.svg'
 interface CardProps {}
 
-interface Employee {
-  _id: number | string;
-  firstname: string;
-  lastname: string;
-  email: string;
-  religion: string;
-  role: string;
-}
+
 
 const Profile: React.FC<CardProps> = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -97,7 +90,7 @@ const Profile: React.FC<CardProps> = () => {
                     </button>
                   </div>
                     <div style={{ width: '60%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginLeft: '0%' }}>
-                      {showPassword? (<>{user?.password}</>): '*'.repeat(Math.min(30, user?.password.length))}
+                      {showPassword? (<>{user?.password}</>): '*'.repeat(Math.min(30, user?.password ? parseInt(user.password).toString().length : 0) )}
                       </div>
     </div>
   </div>

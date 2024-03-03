@@ -13,7 +13,9 @@ interface User {
   store?: {
     storeId?: string | number;
     name?: string
-  }
+  },
+  religion?: string;
+  password?: string;
 }
 
 interface AuthState {
