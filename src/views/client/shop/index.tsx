@@ -31,7 +31,7 @@ const ShoppingPage: React.FC = () => {
   const debouncedSearchQueryRef = useRef<string>(debouncedSearchQuery);
 
 
- 
+
 
   // useEffect(() => {
   //   if (items.length === 0 || selectedCategory !== lastSelectedCategory) {
@@ -43,17 +43,17 @@ const ShoppingPage: React.FC = () => {
 
   useEffect(() => {
     if (items.length === 0 || selectedStore !== lastSelectedStore) {
-      dispatch(fetchAllItems({ page: 1, searchQuery: debouncedSearchQuery, store: "1128" }));
+      dispatch(fetchAllItems({ page: 1, searchQuery: debouncedSearchQuery, store: selectedStore }));
       dispatch(setLastSelectedStore(selectedStore));
     }
   }, [selectedStore, lastSelectedStore]);
 
   useEffect(() => {
     if (debouncedSearchQueryRef.current !== '' && debouncedSearchQuery.trim() === '') {
-      dispatch(fetchAllItems({ page: 1, searchQuery: '', store: "1128" }));
+      dispatch(fetchAllItems({ page: 1, searchQuery: '', store: selectedStore }));
     }
     if (debouncedSearchQuery) {
-      dispatch(fetchAllItems({ page: 1, searchQuery: debouncedSearchQuery, store: "1128" }));
+      dispatch(fetchAllItems({ page: 1, searchQuery: debouncedSearchQuery, store: selectedStore }));
     }
 
     debouncedSearchQueryRef.current = debouncedSearchQuery;
