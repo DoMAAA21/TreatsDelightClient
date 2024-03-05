@@ -18,7 +18,7 @@ export const home = () => {
         <div className="main-heading">
           <div className="overlap">
             <div className="overlap-group-2">
-              <p className="p">A Digital Transformation of TUP-T Canteen</p>
+              <p className="p">1128 TUPT</p>
               <div className="treats-delight">
                 Treats <br />
                 delight
